@@ -2,12 +2,46 @@ import java.util.ArrayList;
 
 public class FileDecrypter {
     
-    public String decodeString(String encryptedString, int shift) {
+    public String decodeFromString(String encryptedString, int shift) {
+         String decodedString = "";
+        
+        for(int i = 0; i < encryptedString.length(); i++) // Loop as many time as there are letters
+        {
+            char tempChar = encryptedString.charAt(i); // Snag each character from the string one at a time
+            
+            // Now, do the converting       
+            FileEncrypter fileEncrypter = new FileEncrypter();
+            
+            int letterVal = fileEncrypter.characterCast(tempChar);
+            char newChar = fileEncrypter.convertBackToChar(letterVal - shift);
+            decodedString += newChar;
+        }
+        System.out.println(decodedString);
         return "";
     }
+    
+    //Tier 2:
 
-    public ArrayList<String> decodeData(String[] encryptedStrings, int shift) {
-        return null;
+    public ArrayList<String> decodeList(String[] encryptedStrings, int shift) {
+    
+    ArrayList<String> decodedList = new ArrayList<String>();
+    
+    FileEncrypter fileEncrypter = new FileEncrypter();
+    
+        for(int i = 0; i<encryptedStrings.length; i++){
+            String encrypted = encryptedStrings[i];
+            String decoded = "";
+            for(int c = 0; c<encrypted.length(); c++){
+                char tempChar = encrypted.charAt(c);
+                int letterVal = fileEncrypter.characterCast(tempChar);
+                char newChar = fileEncrypter.convertBackToChar(letterVal - shift);
+                decoded += newChar;
+                decodedList.add(decoded);
+                
+            }
+    }
+         System.out.println(decodedList);
+         return decodedList;
     }
 
     //Tier 2 (decodeFrom =File: reads data from a file, decodes it, and then writes 
@@ -15,10 +49,12 @@ public class FileDecrypter {
     //just need to link them together in the right way!)
     public void decodeFromFile(String fileName, int shift, String newFileName) {
 
+//        fr.readFromFile(fileName);
+//        fw.writeContentsToFile(newFileName, fileName, true);
+        }
         //FileRead to read
         // call decodeData using the read list
         // FileWrite to write to newfile
-    }
 
     public boolean containsRealWord(String phrase)
     {
