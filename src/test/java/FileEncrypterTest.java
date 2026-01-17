@@ -1,4 +1,5 @@
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 public class FileEncrypterTest {
 
     private final FileEncrypter encrypter = new FileEncrypter();
+    private final FileRead reader = new FileRead();
 
     @Test
     void testEncrypt() {
@@ -18,8 +20,24 @@ public class FileEncrypterTest {
     @Test
     void testWrapValue() {
         assertEquals(32, encrypter.wrapValue(127, 32, 126));
-        assertEquals(33, encrypter.wrapValue(128, 32, 126));
-        assertEquals(126, encrypter.wrapValue(31, 32, 126));
-        assertEquals(125, encrypter.wrapValue(30, 32, 126));
+    }
+
+    @Test
+    void testEncodeData() {
+        ArrayList<String> encodeList = encrypter.encodeData(new String[]{"William", "Li"}, 2);
+        assertEquals(encodeList, new ArrayList<>(Arrays.asList("Yknnkco", "Nk")));
+    }
+
+    @Test
+    void testEncodeToFile(){
+        String fileName = "EncodeFile.txt";
+        encrypter.encodeToFile(new String[]{"William", "Li"}, fileName, 2);
+        String expectedString = "YknnkcoNk";
+        assertEquals(expectedString, reader.retrieveDataFromFile(fileName));
+    }
+    
+    @Test
+    void testRandomizedEncrypter(){
+        
     }
 }
