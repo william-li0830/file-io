@@ -32,7 +32,7 @@ public class FileEncrypterTest {
 
     @Test
     void testEncodeToFile() {
-        String fileName = "EncodeFile.txt";
+        String fileName = "Encrypted.txt";
         ArrayList<String> data = new ArrayList<>(Arrays.asList("William", "Li"));
 
         encrypter.encodeToFile(data, fileName, 2);

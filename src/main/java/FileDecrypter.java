@@ -37,14 +37,12 @@ public class FileDecrypter {
     //just need to link them together in the right way!)
     public void decodeFromFile(String fileName, String newFileName, int shift) {
         FileRead fr = new FileRead();
-        ArrayList<String> encodedList = fr.retrieveDataListFromFile(fileName);
 
-        ArrayList<String> decodedList = new ArrayList<String>();
+        ArrayList<String> dataList = fr.retrieveDataListFromFile(fileName);
+        ArrayList<String> decodedList = decodeData(dataList, shift);
 
-        decodeData(encodedList, shift);
-        
         FileWrite fw = new FileWrite();
-        fw.writeContentsToFile(newFileName, fileName, true);
+        fw.writeContentsToFile(newFileName, decodedList, false);
     }
     //FileRead to read
     // call decodeData using the read list
