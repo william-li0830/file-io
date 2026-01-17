@@ -5,7 +5,6 @@ import java.util.Random;
 
 public class FileEncrypter {
 
-
     //Tier 1( improve encodeString method). Wrap back around if the int the char is cast to goes above 126 or below 32
     public String encodeString(String message, int shift) {
         String encodedString = "";
@@ -22,7 +21,7 @@ public class FileEncrypter {
             encodedString += newChar;
         }
         System.out.println(encodedString);
-        
+
         return encodedString;
     }
 
@@ -64,30 +63,13 @@ public class FileEncrypter {
 
     //Tier 3 (randomizedEncrypter: randomly generates a cypher/shift key that it 
     //applies to a given file, creating a new file that is a copy of the original except its data is now encrypted
-    public void randomizedEncrypter(String fileName, String updatedFileName) {
+    public void randomizedEncrypter(String fileName) {
         Random rand = new Random();
-        int shift = rand.nextInt(26);
+        int shift = rand.nextInt(25) + 1; // Shift is between [1, 25]
 
         FileRead fr = new FileRead();
-        FileWrite fw = new FileWrite();
-        
-        String encoded = "";
-        
-        fr.readFromFile(fileName);
-        
-       File file = new File(fileName);
-       
-       int length = 0;
-
-        for (int i = 0; i < file.length(); i++) {
-//            String encrypted = encryptedStrings.get(i);
-//            for (int c = 0; c < encrypted.length(); c++) {
-//                char tempChar = encrypted.charAt(c);
-//                int letterVal = characterCast(tempChar);
-//                char newChar = convertBackToChar(letterVal + shift);
-//                encoded += newChar;
-            }
-        }
-//        fw.writeContentsToFile(fileName, updatedFileName, false);
-     }
-//}
+        ArrayList<String> dataList = fr.retrieveDataListFromFile(fileName);
+        String newFileName = fileName + "_Encrypted.txt";
+        encodeToFile(dataList, newFileName, shift);
+    }
+}

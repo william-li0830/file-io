@@ -42,6 +42,6 @@ public class FileEncrypterTest {
     
     @Test
     void testRandomizedEncrypter(){
-        
+        encrypter.randomizedEncrypter("RandomEncrypterTest.txt");
     }
 }
