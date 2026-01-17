@@ -16,11 +16,6 @@ public class FileEncrypterTest {
     void testEncrypt() {
         encrypter.encodeString("William", 2);
     }
-    
-    @Test
-    void testWrapValue() {
-        assertEquals(32, encrypter.wrapValue(127, 32, 126));
-    }
 
     @Test
     void testEncodeData() {

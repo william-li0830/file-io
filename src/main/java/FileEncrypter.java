@@ -15,7 +15,7 @@ public class FileEncrypter {
 
             // Now, do the converting
             int letterVal = Codec.characterCast(tempChar);
-            letterVal = wrapValue(letterVal, 32, 126);
+            letterVal = Codec.wrapChar(letterVal);
 
             char newChar = Codec.convertBackToChar(letterVal + shift);
             encodedString += newChar;
@@ -23,23 +23,6 @@ public class FileEncrypter {
         System.out.println(encodedString);
 
         return encodedString;
-    }
-
-    // Example:
-    // wrapValue(13, 2, 5)
-    //      range = 5 - 2 + 1 = 4
-    //      shiftedValue = 13 - 2 = 11
-    //      wrapped = 11 % 4 = 3
-    //      final = 3 + 2 = 5
-    public int wrapValue(int value, int min, int max) {
-        // gets how many values is in between min and max
-        int range = max - min + 1;
-        // shifts the value so min becomes 0
-        int shiftedValue = value - min;
-        // gets the remainder using modulo
-        int wrapped = shiftedValue % range;
-        // shifts back to original range
-        return wrapped + min;
     }
 
     //Tier 1 (encodeData: accepts a list of Strings, encodes all of them, and returns a list of the encoded content)
@@ -65,7 +48,7 @@ public class FileEncrypter {
     //applies to a given file, creating a new file that is a copy of the original except its data is now encrypted
     public void randomizedEncrypter(String fileName) {
         Random rand = new Random();
-        int shift = rand.nextInt(25) + 1; // Shift is between [1, 25]
+        int shift = rand.nextInt(Codec.CHAR_RANGE) + 1; // Shift is between [1, 95]
 
         FileRead fr = new FileRead();
         ArrayList<String> dataList = fr.retrieveDataListFromFile(fileName);

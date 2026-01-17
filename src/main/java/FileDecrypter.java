@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class FileDecrypter {
 
-    // This works if encoded string is not wrapped
     public String decodeString(String encryptedString, int shift) {
         String decodedString = "";
 
