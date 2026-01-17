@@ -1,6 +1,7 @@
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -51,7 +52,8 @@ public class FileWriteTest {
         String NEW_FILENAME = "CustomFileWrite.txt";
         cleanup(NEW_FILENAME);
 
-        fileWrite.writeCustomData(NEW_FILENAME, new String[]{"li", "william", "hello"});
+        ArrayList<String> data = new ArrayList<>(Arrays.asList("li", "william", "hello"));
+        fileWrite.writeCustomData(NEW_FILENAME, data);
         fileRead.readFromFile(NEW_FILENAME);
     }
 }

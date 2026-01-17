@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class FileWrite {
@@ -215,14 +216,14 @@ public class FileWrite {
     // 1. hello
     // 2. li
     // 3. william
-    public void writeCustomData(String fileName, String[] words) {
-        Arrays.sort(words);
+    public void writeCustomData(String fileName, ArrayList<String> words) {
+        Collections.sort(words);
 
         try {
             PrintWriter writer = new PrintWriter(new FileWriter(fileName, false));
-            for (int i = 0; i < words.length; i++) {
+            for (int i = 0; i < words.size(); i++) {
                 writer.print((i + 1) + ". ");
-                writer.println(words[i]);
+                writer.println(words.get(i));
             }
 
             writer.close();

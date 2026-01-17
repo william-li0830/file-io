@@ -24,14 +24,18 @@ public class FileEncrypterTest {
 
     @Test
     void testEncodeData() {
-        ArrayList<String> encodeList = encrypter.encodeData(new String[]{"William", "Li"}, 2);
+        ArrayList<String> data = new ArrayList<>(Arrays.asList("William", "Li"));
+        ArrayList<String> encodeList = encrypter.encodeData(data, 2);
+        
         assertEquals(encodeList, new ArrayList<>(Arrays.asList("Yknnkco", "Nk")));
     }
 
     @Test
-    void testEncodeToFile(){
+    void testEncodeToFile() {
         String fileName = "EncodeFile.txt";
-        encrypter.encodeToFile(new String[]{"William", "Li"}, fileName, 2);
+        ArrayList<String> data = new ArrayList<>(Arrays.asList("William", "Li"));
+
+        encrypter.encodeToFile(data, fileName, 2);
         String expectedString = "YknnkcoNk";
         assertEquals(expectedString, reader.retrieveDataFromFile(fileName));
     }

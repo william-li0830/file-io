@@ -5,13 +5,6 @@ import java.util.Random;
 
 public class FileEncrypter {
 
-    public int characterCast(char letter) {
-        return (int) letter;
-    }
-
-    public char convertBackToChar(int number) {
-        return (char) number;
-    }
 
     //Tier 1( improve encodeString method). Wrap back around if the int the char is cast to goes above 126 or below 32
     public String encodeString(String message, int shift) {
@@ -22,10 +15,10 @@ public class FileEncrypter {
             char tempChar = message.charAt(i); // Snag each character from the string one at a time
 
             // Now, do the converting
-            int letterVal = characterCast(tempChar);
+            int letterVal = Codec.characterCast(tempChar);
             letterVal = wrapValue(letterVal, 32, 126);
 
-            char newChar = convertBackToChar(letterVal + shift);
+            char newChar = Codec.convertBackToChar(letterVal + shift);
             encodedString += newChar;
         }
         System.out.println(encodedString);
@@ -51,7 +44,7 @@ public class FileEncrypter {
     }
 
     //Tier 1 (encodeData: accepts a list of Strings, encodes all of them, and returns a list of the encoded content)
-    public ArrayList<String> encodeData(String[] data, int shift) {
+    public ArrayList<String> encodeData(ArrayList<String> data, int shift) {
         ArrayList<String> encodeList = new ArrayList<>();
 
         for (String message : data) {
@@ -62,7 +55,7 @@ public class FileEncrypter {
     }
 
     //encodeToFile: allows data sent to it to be encoded as well as written to a custom file 
-    public void encodeToFile(String[] data, String newFileName, int shift) {
+    public void encodeToFile(ArrayList<String> data, String newFileName, int shift) {
         ArrayList<String> encodedList = encodeData(data, shift);
 
         FileWrite fw = new FileWrite();
