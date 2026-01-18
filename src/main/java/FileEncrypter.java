@@ -48,8 +48,9 @@ public class FileEncrypter {
     //applies to a given file, creating a new file that is a copy of the original except its data is now encrypted
     public void randomizedEncrypter(String fileName) {
         Random rand = new Random();
-        int shift = rand.nextInt(Codec.CHAR_RANGE) + 1; // Shift is between [1, 95]
+        int shift = rand.nextInt(Codec.CHAR_RANGE - 1) + 1; // Shift is between [1, 94]
 
+        System.out.println("Encrypt with cypher " + shift);
         FileRead fr = new FileRead();
         ArrayList<String> dataList = fr.retrieveDataListFromFile(fileName);
         String newFileName = fileName + "_Encrypted.txt";

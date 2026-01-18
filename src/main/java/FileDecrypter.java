@@ -16,7 +16,6 @@ public class FileDecrypter {
             decodedString += newChar;
         }
 
-        System.out.println(decodedString);
         return decodedString;
     }
 
@@ -44,29 +43,6 @@ public class FileDecrypter {
         FileWrite fw = new FileWrite();
         fw.writeContentsToFile(newFileName, decodedList, false);
     }
-    //FileRead to read
-    // call decodeData using the read list
-    // FileWrite to write to newfile
-
-    public boolean containsRealWord(String phrase) {
-        FileRead reader = new FileRead();
-
-        String[] phraseWords = phrase.split(" "); // Breaks my phrase down into individual words
-        ArrayList<String> allWords = reader.retrieveDataListFromFile("AllWords.txt");
-
-        boolean foundRealWord = false;
-
-        for (String myWord : phraseWords) {
-            for (String dictWord : allWords) {
-                if (dictWord.toLowerCase().equals(myWord.toLowerCase())) {
-                    foundRealWord = true;
-                    break;
-                }
-            }
-        }
-
-        return foundRealWord;
-    }
 
     //Tier 3 (bruteForceDecryption: It should do the following:
     //Accept an encrypted file
@@ -84,6 +60,11 @@ public class FileDecrypter {
             ArrayList<String> decodedList = decodeData(dataList, i);
             System.out.println("Attempt #" + i);
             System.out.println(decodedList);
+
+            if (!containsRealWord(decodedList)) {
+                continue;
+            }
+
             System.out.println("Is this correct? Enter Y for 'YES' or other keys for 'NO'");
 
             String input = scanner.nextLine();
@@ -96,5 +77,25 @@ public class FileDecrypter {
 
         System.out.println("Failed! Ran out of all possible cyphers");
         scanner.close();
+    }
+
+    public boolean containsRealWord(ArrayList<String> phraseList) {
+        FileRead reader = new FileRead();
+
+        ArrayList<String> allWords = reader.retrieveDataListFromFile("AllWords.txt");
+
+        for (String phrase : phraseList) {
+            String[] phraseWords = phrase.split(" "); // Breaks my phrase down into individual words
+            for (String myWord : phraseWords) {
+                for (String dictWord : allWords) {
+                    if (dictWord.toLowerCase().equals(myWord.toLowerCase())) {
+                        System.out.println("Real word found: " + myWord);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }
