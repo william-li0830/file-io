@@ -48,9 +48,4 @@ public class FileDecrypterTest {
         
         assertEquals(expectedString, decodedString);
     }
-
-    @Test
-    void testBruteForceDecryption() {
-
-    }
 }

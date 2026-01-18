@@ -1,6 +1,7 @@
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FileDecrypter {
 
@@ -27,7 +28,7 @@ public class FileDecrypter {
             String decoded = decodeString(encrypted, shift);
             decodedList.add(decoded);
         }
-        
+
         return decodedList;
     }
 
@@ -67,43 +68,33 @@ public class FileDecrypter {
         return foundRealWord;
     }
 
-//Tier 3 (bruteForceDecryption: It should do the following:
-//Accept an encrypted file
-//Attempt to decrypt the file using a variety of cyphers/shifts
-//Print out each attempt (or a small portion of the content from an attempt, if there is a lot of data) to the user
-//Allow the user to choose if a successful decryption was found in the data.
-//If they choose yes, end the algorithm. If they choose no, run it again with a different set of guesses
-    public void bruteForceDecryption(String fileName, String newFileName, int shift) {
+    //Tier 3 (bruteForceDecryption: It should do the following:
+    //Accept an encrypted file
+    //Attempt to decrypt the file using a variety of cyphers/shifts
+    //Print out each attempt (or a small portion of the content from an attempt, if there is a lot of data) to the user
+    //Allow the user to choose if a successful decryption was found in the data.
+    //If they choose yes, end the algorithm. If they choose no, run it again with a different set of guesses
+    public void bruteForceDecryption(String fileName) {
+        Scanner scanner = new Scanner(System.in);
 
         FileRead fr = new FileRead();
-//        fr.readFromFile(fileName);
+        ArrayList<String> dataList = fr.retrieveDataListFromFile(fileName);
 
-        FileEncrypter fileEncrypter = new FileEncrypter();
+        for (int i = 1; i < Codec.CHAR_RANGE; i++) {
+            ArrayList<String> decodedList = decodeData(dataList, i);
+            System.out.println("Attempt #" + i);
+            System.out.println(decodedList);
+            System.out.println("Is this correct? Enter Y for 'YES' or other keys for 'NO'");
 
-        int length = 0;
-
-        File file = new File(fileName);
-
-        for (int i = 0; i < file.length(); i++) {
-//            String encrypted = encryptedStrings.get(i);
-            String decoded = "";
-//            for (int c = 0; c < encrypted.length(); c++) {
-//                char tempChar = encrypted.charAt(c);
-//                int letterVal = fileEncrypter.characterCast(tempChar);
-//                char newChar = fileEncrypter.convertBackToChar(letterVal - shift);
-//                decoded += newChar;
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("y")) {
+                System.out.println("Success!");
+                scanner.close();
+                return;
+            }
         }
-//            decodedFile.add(decoded);
+
+        System.out.println("Failed! Ran out of all possible cyphers");
+        scanner.close();
     }
-//        Scanner scan = new Scanner();
-//        scan.nextLine();
-
-    String input;
-
-//        if (input = "yes") {
-//            System.out.println("Successful");
-//        } else {
-//            System.out.println("Unsucssesful");
-//        }
 }
-//    }
