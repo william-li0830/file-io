@@ -56,4 +56,27 @@ public class FileEncrypter {
         String newFileName = fileName + "_Encrypted.txt";
         encodeToFile(dataList, newFileName, shift);
     }
+
+    // TODO
+    // Apply different types of encryption/decryption in a row. 
+    // For example, shift all letters by 3 then shift every other letter by 2,
+    // then reverse the order of all letters
+    public String layeredEncrytion(String message) {
+        String encodedString = "";
+
+        // 1. Shift all letters by 3
+        // 2. Shift every other letter by 2
+        // 3. Reverse the order
+        for (int i = 0; i < message.length(); i++) {
+            char tempChar = message.charAt(i);
+
+            // Hint: every other letter
+            // if (i%2 == 0), then shift
+        }
+        
+        // reverse
+        
+
+        return encodedString;
+    }
 }

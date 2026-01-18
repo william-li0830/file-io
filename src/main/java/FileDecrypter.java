@@ -98,4 +98,24 @@ public class FileDecrypter {
 
         return false;
     }
+    
+    public String layeredDecrytion(String message) {
+        String decodedString = "";
+
+        // 1. Reverse Order
+        // 2. Shift every other letter by 2
+        // 3. Shift all letters by 3
+
+        for (int i = 0; i < message.length(); i++) {
+            char tempChar = message.charAt(i);
+
+            // Hint: every other letter
+            // if (i%2 == 0), then shift
+        }
+        
+        // reverse
+        
+
+        return decodedString;
+    }
 }
