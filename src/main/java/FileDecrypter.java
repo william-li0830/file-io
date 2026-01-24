@@ -1,5 +1,3 @@
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,7 +17,6 @@ public class FileDecrypter {
         return decodedString;
     }
 
-    //Tier 2:
     public ArrayList<String> decodeData(ArrayList<String> data, int shift) {
         ArrayList<String> decodedList = new ArrayList<>();
 
@@ -31,9 +28,6 @@ public class FileDecrypter {
         return decodedList;
     }
 
-    //Tier 2 (decodeFrom =File: reads data from a file, decodes it, and then writes 
-    //the decoded information to a new file (hint: you already have all the tools built to do this, you
-    //just need to link them together in the right way!)
     public void decodeFromFile(String fileName, String newFileName, int shift) {
         FileRead fr = new FileRead();
 
@@ -44,12 +38,6 @@ public class FileDecrypter {
         fw.writeContentsToFile(newFileName, decodedList, false);
     }
 
-    //Tier 3 (bruteForceDecryption: It should do the following:
-    //Accept an encrypted file
-    //Attempt to decrypt the file using a variety of cyphers/shifts
-    //Print out each attempt (or a small portion of the content from an attempt, if there is a lot of data) to the user
-    //Allow the user to choose if a successful decryption was found in the data.
-    //If they choose yes, end the algorithm. If they choose no, run it again with a different set of guesses
     public void bruteForceDecryption(String fileName) {
         Scanner scanner = new Scanner(System.in);
 
@@ -98,24 +86,24 @@ public class FileDecrypter {
 
         return false;
     }
-    
+
     public String layeredDecrytion(String message) {
         String decodedString = "";
-
-        // 1. Reverse Order
-        // 2. Shift every other letter by 2
-        // 3. Shift all letters by 3
-
+        
+         // Shifts all letters by 3
         for (int i = 0; i < message.length(); i++) {
             char tempChar = message.charAt(i);
-
-            // Hint: every other letter
-            // if (i%2 == 0), then shift
+            int letterVal = Codec.characterCast(tempChar);
+            
+        letterVal -=3;
+        
+           if (i % 2 == 0) {
+            letterVal -= 2;
         }
-        
-        // reverse
-        
-
+            char newChar = Codec.convertBackToChar(letterVal);
+            decodedString += newChar;
+        }
+        System.out.println(decodedString);
         return decodedString;
     }
 }

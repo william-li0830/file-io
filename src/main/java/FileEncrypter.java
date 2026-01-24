@@ -1,11 +1,8 @@
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class FileEncrypter {
 
-    //Tier 1( improve encodeString method). Wrap back around if the int the char is cast to goes above 126 or below 32
     public String encodeString(String message, int shift) {
         String encodedString = "";
 
@@ -25,7 +22,6 @@ public class FileEncrypter {
         return encodedString;
     }
 
-    //Tier 1 (encodeData: accepts a list of Strings, encodes all of them, and returns a list of the encoded content)
     public ArrayList<String> encodeData(ArrayList<String> data, int shift) {
         ArrayList<String> encodeList = new ArrayList<>();
 
@@ -44,8 +40,6 @@ public class FileEncrypter {
         fw.writeContentsToFile(newFileName, encodedList, false);
     }
 
-    //Tier 3 (randomizedEncrypter: randomly generates a cypher/shift key that it 
-    //applies to a given file, creating a new file that is a copy of the original except its data is now encrypted
     public void randomizedEncrypter(String fileName) {
         Random rand = new Random();
         int shift = rand.nextInt(Codec.CHAR_RANGE - 1) + 1; // Shift is between [1, 94]
@@ -57,26 +51,21 @@ public class FileEncrypter {
         encodeToFile(dataList, newFileName, shift);
     }
 
-    // TODO
-    // Apply different types of encryption/decryption in a row. 
-    // For example, shift all letters by 3 then shift every other letter by 2,
-    // then reverse the order of all letters
     public String layeredEncrytion(String message) {
         String encodedString = "";
-
-        // 1. Shift all letters by 3
-        // 2. Shift every other letter by 2
-        // 3. Reverse the order
         for (int i = 0; i < message.length(); i++) {
             char tempChar = message.charAt(i);
-
-            // Hint: every other letter
-            // if (i%2 == 0), then shift
+            int letterVal = Codec.characterCast(tempChar);
+            
+        if (i % 2 == 0) {
+            letterVal += 2;
         }
+        letterVal +=3;
         
-        // reverse
-        
-
+            char newChar = Codec.convertBackToChar(letterVal);
+            encodedString += newChar;
+        }
+        System.out.println(encodedString);
         return encodedString;
     }
 }

@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +20,8 @@ public class FileDecrypterTest {
         }
     }
 
+    //All assertEquals()lines(FileDecrypterTest and FileEncrypterTest)are written with some help
+    
     @Test
     void testDecodeFromString() {
         assertEquals("William", decrypter.decodeString("Yknnkco", 2));
@@ -45,6 +46,14 @@ public class FileDecrypterTest {
         // compare decrypted data to expected data
         String decodedString = reader.retrieveDataFromFile(DECODED_FILENAME);
         String expectedString = "WilliamLi";
+        
+        assertEquals(expectedString, decodedString);
+    }
+    
+    @Test
+    void testLayeredDecryption(){
+        String decodedString = decrypter.layeredDecrytion("Mhqot#\\lqondr");
+        String expectedString = "Hello William";
         
         assertEquals(expectedString, decodedString);
     }

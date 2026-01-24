@@ -39,4 +39,11 @@ public class FileEncrypterTest {
     void testRandomizedEncrypter(){
         encrypter.randomizedEncrypter("RandomEncrypterTest.txt");
     }
+    
+    @Test
+    void textLayeredEncryption(){
+       String encodedString = encrypter.layeredEncrytion("Hello William");
+        String expectedString = "Mhqot#\\lqondr";
+        assertEquals(expectedString, encodedString);
+    }
 }
